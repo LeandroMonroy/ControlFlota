@@ -1,0 +1,41 @@
+// Paleta de marca ControlFlota — navy operativo + cian de estado + oro institucional
+// (misma paleta que el prototipo original en flota_dspe/css/style.css)
+
+$navy-950: #071429;
+$navy-900: #0b1e3d;
+$navy-800: #142b52;
+$navy-700: #1e3a68;
+
+$cyan-500: #00c2d1;
+$gold-500: #d4a02a;
+$gold-400: #e6bc55;
+
+$body-bg-app: #eef1f6;
+$line: #e1e6ee;
+$text: #16212f;
+$muted: #64748b;
+
+$red: #d64545;
+$amber: #c9861b;
+$green: #218a58;
+
+// ---- Overrides de variables de Bootstrap ----
+$primary: $gold-500;
+$secondary: $navy-700;
+$info: $cyan-500;
+$danger: $red;
+$warning: $amber;
+$success: $green;
+
+$body-bg: $body-bg-app;
+$body-color: $text;
+
+$font-family-sans-serif: "Inter", system-ui, sans-serif;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: "Space Grotesk", "Inter", sans-serif;
+
+$border-radius: 0.6rem;
+$border-radius-sm: 0.45rem;
+$border-radius-lg: 0.75rem;
+
+$font-size-base: 0.906rem; // ~14.5px
