@@ -23,7 +23,7 @@
             <tbody>
                 @forelse ($historial as $h)
                     <tr>
-                        <td><span class="ppu-badge">{{ $h->vehiculo->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$h->vehiculo->ppu" /></td>
                         <td>{{ $h->tipoMantencion->nombre }}</td>
                         <td class="font-mono">{{ $h->fecha_realizada->format('d-m-Y') }}</td>
                         <td class="font-mono">{{ number_format($h->km_realizada, 0, ',', '.') }} km</td>

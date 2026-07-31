@@ -12,7 +12,7 @@
             <tbody>
                 @forelse ($mantenciones as $m)
                     <tr>
-                        <td><span class="ppu-badge">{{ $m->vehiculo->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$m->vehiculo->ppu" /></td>
                         <td>{{ $m->tipoMantencion->nombre }}</td>
                         <td class="font-mono">
                             {{ $m->km_ultima !== null ? number_format($m->km_ultima, 0, ',', '.') . ' km' : '—' }}

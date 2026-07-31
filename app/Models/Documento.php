@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Documento extends Model
 {
@@ -47,6 +48,13 @@ class Documento extends Model
     {
         return Attribute::get(
             fn () => NivelEstado::porDias($this->dias_restantes)
+        );
+    }
+
+    protected function archivoLink(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->archivo_url ? Storage::disk('public')->url($this->archivo_url) : null
         );
     }
 }

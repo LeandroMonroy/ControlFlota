@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/vehiculos', [VehiculoController::class, 'index'])->name('vehiculos.index');
+    Route::get('/vehiculos/{vehiculo}', [VehiculoController::class, 'show'])->name('vehiculos.show');
     Route::post('/vehiculos', [VehiculoController::class, 'store'])->middleware('can:vehiculos.editar')->name('vehiculos.store');
     Route::put('/vehiculos/{vehiculo}', [VehiculoController::class, 'update'])->middleware('can:vehiculos.editar')->name('vehiculos.update');
     Route::delete('/vehiculos/{vehiculo}', [VehiculoController::class, 'destroy'])->middleware('can:administrador')->name('vehiculos.destroy');

@@ -49,7 +49,7 @@
                 <div class="alert-row">
                     <span class="led {{ $d->nivel }}"></span>
                     <div class="alert-main">
-                        <span class="ppu-badge">{{ $d->vehiculo->ppu }}</span> · {{ $d->tipo_documento }}
+                        <x-ppu-plate :ppu="$d->vehiculo->ppu" /> · {{ $d->tipo_documento }}
                         <div class="desc">{{ $d->vehiculo->marca }} {{ $d->vehiculo->modelo }} · vence {{ $d->fecha_vencimiento->format('d-m-Y') }}</div>
                     </div>
                     <span class="badge nivel-{{ $d->nivel }}">
@@ -72,7 +72,7 @@
                 <div class="alert-row">
                     <span class="led {{ $m->nivel }}"></span>
                     <div class="alert-main">
-                        <span class="ppu-badge">{{ $m->vehiculo->ppu }}</span> · {{ $m->tipoMantencion->nombre }}
+                        <x-ppu-plate :ppu="$m->vehiculo->ppu" /> · {{ $m->tipoMantencion->nombre }}
                         <div class="desc">{{ $m->vehiculo->marca }} {{ $m->vehiculo->modelo }} · actual {{ number_format($m->vehiculo->kilometraje_actual, 0, ',', '.') }} km</div>
                     </div>
                     <span class="badge nivel-{{ $m->nivel }}">

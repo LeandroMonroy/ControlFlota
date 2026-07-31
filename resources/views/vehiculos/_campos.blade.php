@@ -69,4 +69,20 @@
         <label class="form-label">Observaciones</label>
         <textarea name="observaciones" rows="2" class="form-control">{{ old('observaciones', $vehiculo->observaciones ?? '') }}</textarea>
     </div>
+
+    @foreach ([1 => 'Fotografía 1', 2 => 'Fotografía 2'] as $n => $etiqueta)
+        <div class="col-md-6">
+            <label class="form-label">{{ $etiqueta }}</label>
+            @if ($vehiculo?->{"foto{$n}_url"})
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <img src="{{ $vehiculo->{"foto{$n}_url"} }}" alt="{{ $etiqueta }}" class="img-thumbnail" style="width:70px;height:70px;object-fit:cover">
+                    <div class="form-check">
+                        <input type="checkbox" name="eliminar_foto{{ $n }}" value="1" class="form-check-input" id="eliminarFoto{{ $n }}_{{ $vehiculo->id }}">
+                        <label class="form-check-label small" for="eliminarFoto{{ $n }}_{{ $vehiculo->id }}">Eliminar foto actual</label>
+                    </div>
+                </div>
+            @endif
+            <input type="file" name="foto{{ $n }}" accept="image/*" class="form-control">
+        </div>
+    @endforeach
 </div>

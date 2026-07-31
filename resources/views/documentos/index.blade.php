@@ -30,12 +30,12 @@
     <div class="table-responsive">
         <table class="table table-hover align-middle bg-white">
             <thead>
-                <tr><th>PPU</th><th>Documento</th><th>N° documento</th><th>Vence</th><th>Estado</th><th>Costo</th><th></th></tr>
+                <tr><th>PPU</th><th>Documento</th><th>N° documento</th><th>Vence</th><th>Estado</th><th>Costo</th><th>Archivo</th><th></th></tr>
             </thead>
             <tbody>
                 @forelse ($documentos as $d)
                     <tr>
-                        <td><span class="ppu-badge">{{ $d->vehiculo->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$d->vehiculo->ppu" /></td>
                         <td>{{ $d->tipo_documento }}</td>
                         <td class="font-mono">{{ $d->numero_documento ?: '—' }}</td>
                         <td class="font-mono">{{ $d->fecha_vencimiento->format('d-m-Y') }}</td>
@@ -45,6 +45,13 @@
                             </span>
                         </td>
                         <td class="font-mono">{{ $d->costo !== null ? '$' . number_format($d->costo, 0, ',', '.') : '—' }}</td>
+                        <td>
+                            @if ($d->archivo_link)
+                                <a href="{{ $d->archivo_link }}" target="_blank" rel="noopener">Ver PDF</a>
+                            @else
+                                —
+                            @endif
+                        </td>
                         <td class="text-end">
                             @can('documentos.editar')
                                 <button type="button" class="btn btn-sm btn-outline-secondary" title="Editar" data-bs-toggle="modal" data-bs-target="#modalDocumentoEdit{{ $d->id }}">✎</button>
@@ -55,7 +62,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7"><div class="empty-state">Sin documentos registrados.</div></td></tr>
+                    <tr><td colspan="8"><div class="empty-state">Sin documentos registrados.</div></td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -72,7 +79,7 @@
     @can('documentos.editar')
         <div class="modal fade" id="modalDocumentoCreate" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <form method="POST" action="{{ route('documentos.store') }}" class="modal-content">
+                <form method="POST" action="{{ route('documentos.store') }}" class="modal-content" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Nuevo documento</h5>
@@ -92,7 +99,7 @@
         @foreach ($documentos as $d)
             <div class="modal fade" id="modalDocumentoEdit{{ $d->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                    <form method="POST" action="{{ route('documentos.update', $d) }}" class="modal-content">
+                    <form method="POST" action="{{ route('documentos.update', $d) }}" class="modal-content" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="modal-header">
                             <h5 class="modal-title">Editar documento</h5>

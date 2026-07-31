@@ -33,7 +33,7 @@
             <tbody>
                 @forelse ($documentos as $d)
                     <tr>
-                        <td><span class="ppu-badge">{{ $d->vehiculo->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$d->vehiculo->ppu" /></td>
                         <td>{{ $d->tipo_documento }}</td>
                         <td class="font-mono">{{ $d->numero_documento ?: '—' }}</td>
                         <td class="font-mono">{{ $d->fecha_vencimiento->format('d-m-Y') }}</td>

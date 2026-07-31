@@ -56,7 +56,7 @@
             <tbody>
                 @forelse ($vehiculos as $v)
                     <tr>
-                        <td><span class="ppu-badge">{{ $v->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$v->ppu" /></td>
                         <td>{{ $v->tipo }}</td>
                         <td>{{ $v->marca }} {{ $v->modelo }}</td>
                         <td class="font-mono">{{ $v->anio }}</td>
@@ -64,6 +64,7 @@
                         <td>{{ $v->area_asignada ?: '—' }}</td>
                         <td><span class="badge bg-{{ $estadoBadge[$v->estado] ?? 'secondary' }}">{{ $v->estado }}</span></td>
                         <td class="text-end">
+                            <a href="{{ route('vehiculos.show', $v) }}" class="btn btn-sm btn-outline-secondary" title="Ver detalle">⊙</a>
                             @can('vehiculos.editar')
                                 <button type="button" class="btn btn-sm btn-outline-secondary" title="Editar" data-bs-toggle="modal" data-bs-target="#modalVehiculoEdit{{ $v->id }}">✎</button>
                             @endcan
@@ -71,7 +72,7 @@
                                 <button type="button" class="btn btn-sm btn-outline-secondary" title="Agregar documento" data-bs-toggle="modal" data-bs-target="#modalDocumentoCreate{{ $v->id }}">▤</button>
                             @endcan
                             @can('mantenciones.editar')
-                                <button type="button" class="btn btn-sm btn-outline-secondary" title="Nuevo ítem de mantención" data-bs-toggle="modal" data-bs-target="#modalMantencionCreate{{ $v->id }}">⚙</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" title="Nuevo ítem de mantención" data-bs-toggle="modal" data-bs-target="#modalMantencionCreate{{ $v->id }}">⚒</button>
                             @endcan
                             @can('administrador')
                                 <button type="submit" form="deleteVehiculo{{ $v->id }}" class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="return confirm('¿Eliminar el vehículo {{ $v->ppu }}? Esto también elimina sus documentos, plan de mantención e historial.')">✕</button>
@@ -98,7 +99,7 @@
         {{-- Modal: nuevo vehículo --}}
         <div class="modal fade" id="modalVehiculoCreate" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
-                <form method="POST" action="{{ route('vehiculos.store') }}" class="modal-content">
+                <form method="POST" action="{{ route('vehiculos.store') }}" class="modal-content" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title">Nuevo vehículo</h5>
@@ -119,7 +120,7 @@
         @foreach ($vehiculos as $v)
             <div class="modal fade" id="modalVehiculoEdit{{ $v->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                    <form method="POST" action="{{ route('vehiculos.update', $v) }}" class="modal-content">
+                    <form method="POST" action="{{ route('vehiculos.update', $v) }}" class="modal-content" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <div class="modal-header">
                             <h5 class="modal-title">Editar vehículo</h5>
@@ -149,7 +150,7 @@
         @foreach ($vehiculos as $v)
             <div class="modal fade" id="modalDocumentoCreate{{ $v->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
-                    <form method="POST" action="{{ route('documentos.store') }}" class="modal-content">
+                    <form method="POST" action="{{ route('documentos.store') }}" class="modal-content" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title">Nuevo documento — {{ $v->ppu }}</h5>

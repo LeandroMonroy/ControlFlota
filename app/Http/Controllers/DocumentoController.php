@@ -7,6 +7,7 @@ use App\Models\Documento;
 use App\Models\Vehiculo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class DocumentoController extends Controller
@@ -30,20 +31,44 @@ class DocumentoController extends Controller
 
     public function store(DocumentoRequest $request): RedirectResponse
     {
-        Documento::create($request->validated());
+        $data = $request->safe()->except(['archivo', 'eliminar_archivo']);
+
+        if ($request->hasFile('archivo')) {
+            $data['archivo_url'] = $request->file('archivo')->store('documentos', 'public');
+        }
+
+        Documento::create($data);
 
         return redirect()->route('documentos.index')->with('success', 'Documento registrado.');
     }
 
     public function update(DocumentoRequest $request, Documento $documento): RedirectResponse
     {
-        $documento->update($request->validated());
+        $data = $request->safe()->except(['archivo', 'eliminar_archivo']);
+
+        if ($request->hasFile('archivo')) {
+            if ($documento->archivo_url) {
+                Storage::disk('public')->delete($documento->archivo_url);
+            }
+            $data['archivo_url'] = $request->file('archivo')->store('documentos', 'public');
+        } elseif ($request->boolean('eliminar_archivo')) {
+            if ($documento->archivo_url) {
+                Storage::disk('public')->delete($documento->archivo_url);
+            }
+            $data['archivo_url'] = null;
+        }
+
+        $documento->update($data);
 
         return redirect()->route('documentos.index')->with('success', 'Documento actualizado.');
     }
 
     public function destroy(Documento $documento): RedirectResponse
     {
+        if ($documento->archivo_url) {
+            Storage::disk('public')->delete($documento->archivo_url);
+        }
+
         $documento->delete();
 
         return redirect()->route('documentos.index')->with('success', 'Documento eliminado.');

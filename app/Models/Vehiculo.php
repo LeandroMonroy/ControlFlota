@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Vehiculo extends Model
 {
@@ -26,6 +28,8 @@ class Vehiculo extends Model
         'responsable',
         'estado',
         'observaciones',
+        'foto1_path',
+        'foto2_path',
     ];
 
     protected function casts(): array
@@ -50,5 +54,19 @@ class Vehiculo extends Model
     public function historial(): HasMany
     {
         return $this->hasMany(HistorialMantencion::class);
+    }
+
+    protected function foto1Url(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->foto1_path ? Storage::disk('public')->url($this->foto1_path) : null
+        );
+    }
+
+    protected function foto2Url(): Attribute
+    {
+        return Attribute::get(
+            fn () => $this->foto2_path ? Storage::disk('public')->url($this->foto2_path) : null
+        );
     }
 }

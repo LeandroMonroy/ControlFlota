@@ -149,15 +149,101 @@ body {
   font-size: 0.82rem;
 }
 
-// ---------------- Badges de estado / nivel ----------------
-.ppu-badge {
-  font-family: "JetBrains Mono", ui-monospace, monospace;
+// ---------------- Patente estilo placa chilena ----------------
+.ppu-plate {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 36px;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1.5px solid #111;
+  border-radius: 3px;
+  padding: 1px 4px 2px;
+  line-height: 1;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+.ppu-plate-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: "Space Grotesk", Arial, sans-serif;
   font-weight: 700;
-  background: $navy-800;
+  font-size: 0.78rem;
+  color: #111;
+  letter-spacing: 0.02em;
+}
+
+.ppu-plate-dot {
+  font-size: 0.9em;
+  margin: 0 1px;
+}
+
+.ppu-plate-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 11px;
+  margin: 0 2px;
+  background: #111;
+  clip-path: polygon(50% 0%, 100% 20%, 100% 65%, 50% 100%, 0% 65%, 0% 20%);
+}
+
+.ppu-plate-badge span {
   color: #fff;
-  padding: 0.2rem 0.5rem;
-  border-radius: $border-radius-sm;
-  font-size: 0.8rem;
+  font-size: 6px;
+  line-height: 1;
+
+  &::before {
+    content: "\2605";
+  }
+}
+
+.ppu-plate-country {
+  font-family: "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.42rem;
+  letter-spacing: 0.16em;
+  color: #111;
+  margin-top: 1px;
+}
+
+.ppu-plate-lg {
+  width: 190px;
+  height: 68px;
+  padding: 3px 10px 4px;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.ppu-plate-lg .ppu-plate-row {
+  font-size: 1.5rem;
+  gap: 2px;
+}
+
+.ppu-plate-lg .ppu-plate-badge {
+  width: 20px;
+  height: 22px;
+  margin: 0 4px;
+}
+
+.ppu-plate-lg .ppu-plate-badge span {
+  font-size: 12px;
+}
+
+.ppu-plate-lg .ppu-plate-country {
+  font-size: 0.7rem;
+  margin-top: 2px;
 }
 
 .nivel-vencido { color: #fff; background-color: $red; }

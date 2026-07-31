@@ -44,4 +44,17 @@
         <label class="form-label">Observaciones</label>
         <textarea name="observaciones" rows="2" class="form-control">{{ old('observaciones', $documento->observaciones ?? '') }}</textarea>
     </div>
+    <div class="col-12">
+        <label class="form-label">Documento (PDF)</label>
+        @if ($documento?->archivo_link)
+            <div class="d-flex align-items-center gap-2 mb-2">
+                <a href="{{ $documento->archivo_link }}" target="_blank" rel="noopener">Ver archivo actual</a>
+                <div class="form-check">
+                    <input type="checkbox" name="eliminar_archivo" value="1" class="form-check-input" id="eliminarArchivo{{ $documento->id }}">
+                    <label class="form-check-label small" for="eliminarArchivo{{ $documento->id }}">Eliminar archivo actual</label>
+                </div>
+            </div>
+        @endif
+        <input type="file" name="archivo" accept="application/pdf" class="form-control">
+    </div>
 </div>

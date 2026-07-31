@@ -20,7 +20,7 @@
             <tbody>
                 @forelse ($vehiculos as $v)
                     <tr>
-                        <td><span class="ppu-badge">{{ $v->ppu }}</span></td>
+                        <td><x-ppu-plate :ppu="$v->ppu" /></td>
                         <td>{{ $v->tipo }}</td>
                         <td>{{ $v->tipo_combustible ?: '—' }}</td>
                         <td>{{ $v->marca }} {{ $v->modelo }}</td>

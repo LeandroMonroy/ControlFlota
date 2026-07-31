@@ -30,7 +30,8 @@ class DocumentoRequest extends FormRequest
             'fecha_emision' => ['nullable', 'date'],
             'fecha_vencimiento' => ['required', 'date'],
             'costo' => ['nullable', 'numeric', 'min:0'],
-            'archivo_url' => ['nullable', 'string', 'max:255'],
+            'archivo' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+            'eliminar_archivo' => ['nullable', 'boolean'],
             'observaciones' => ['nullable', 'string'],
         ];
     }

@@ -32,6 +32,10 @@ class VehiculoRequest extends FormRequest
             'responsable' => ['nullable', 'string', 'max:80'],
             'estado' => ['nullable', Rule::in(['Operativo', 'En mantención', 'Fuera de servicio', 'Dado de baja'])],
             'observaciones' => ['nullable', 'string'],
+            'foto1' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'foto2' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'eliminar_foto1' => ['nullable', 'boolean'],
+            'eliminar_foto2' => ['nullable', 'boolean'],
         ];
     }
 
